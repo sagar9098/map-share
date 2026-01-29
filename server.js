@@ -14,7 +14,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // 🔥 Serve static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/web")));
+
 
 // ✅ Redis (external, OK for free tier)
 const redis = new Redis(process.env.REDIS_URL);
@@ -22,9 +23,7 @@ const redis = new Redis(process.env.REDIS_URL);
 redis.on("connect", () => console.log("✅ Redis connected"));
 redis.on("error", (e) => console.error("❌ Redis error", e));
 
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "public/web/index.html"));
-});
+
 
 // 📍 Save location
 app.post("/save-location", async (req, res) => {
@@ -83,7 +82,9 @@ app.post("/admin/get-all-data", async (req, res) => {
     res.status(500).json({ error: "server error" });
   }
 });
-
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "public/web/index.html"));
+});
 
 // ✅ Render provides PORT
 const PORT = process.env.PORT || 3000;
