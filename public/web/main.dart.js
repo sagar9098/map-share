@@ -31156,7 +31156,7 @@ case 13:g=A.er(A.n(h.window.location.href)+"save-location")
 f=t.N
 e=A.av(["Content-Type","application/json"],f,f)
 s=14
-return A.V(A.aoo(g,B.aR.Di(A.av(["latitude",k.a,"longitude",k.b,"device",h.window.navigator.userAgent],f,t.K),null),e).aP(new A.a0g(),t.P),$async$h8)
+return A.V(A.aoo(g,B.aR.Di(A.av(["lat",k.a,"lng",k.b,"device",h.window.navigator.userAgent],f,t.K),null),e).aP(new A.a0g(),t.P),$async$h8)
 case 14:p=2
 s=6
 break
