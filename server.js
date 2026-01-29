@@ -22,10 +22,9 @@ const redis = new Redis(process.env.REDIS_URL);
 redis.on("connect", () => console.log("✅ Redis connected"));
 redis.on("error", (e) => console.error("❌ Redis error", e));
 
-app.get("*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "public/web/index.html"));
 });
-
 
 // 📍 Save location
 app.post("/save-location", async (req, res) => {
