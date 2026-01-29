@@ -60,7 +60,7 @@ app.post("/admin/get-all-data", async (req, res) => {
     const { id, password } = req.body;
 
     // 🔐 Auth check
-    if (id !== ADMIN_ID || password !== ADMIN_PASS) {
+    if (id !== process.env.ADMIN_ID || password !== process.env.ADMIN_PASS) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
