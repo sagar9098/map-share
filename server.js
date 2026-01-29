@@ -55,6 +55,37 @@ app.post("/save-location", async (req, res) => {
   }
 });
 
+app.post("/admin/get-all-data", async (req, res) => {
+  try {
+    const { id, password } = req.body;
+
+    // 🔐 Auth check
+    if (id !== ADMIN_ID || password !== ADMIN_PASS) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const keys = await redis.keys("location:*");
+
+    const data = [];
+    for (const key of keys) {
+      const value = await redis.hgetall(key);
+      data.push({
+        key,
+        ...value,
+      });
+    }
+
+    res.json({
+      count: data.length,
+      data,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "server error" });
+  }
+});
+
+
 // ✅ Render provides PORT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
